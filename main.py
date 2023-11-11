@@ -18,7 +18,7 @@ async def read_items():
 
 @app.post("/items/add/")
 async def add_items( cake: Cake):
-    return cake
+    return cake.name
 
 @app.delete("/items/delete/{item_id}")
 async def delete_items():
