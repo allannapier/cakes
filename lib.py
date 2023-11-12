@@ -33,8 +33,7 @@ def get_cakes(s3):
     ret_list = []
     try:
         cakes_list = s3.list_objects_v2(
-        Bucket=BUCKET,
-        Prefix='cakes/'
+        Bucket='cakes'
         )['contents']
         for cake in cakes_list:
             ret_list.append({"cake":cake['Key']})
