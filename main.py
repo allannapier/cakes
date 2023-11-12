@@ -32,7 +32,6 @@ async def add_items(cake: Cake):
     s3 =s3client()
     # get the id and use that as the filename in S3
     id = get_next_id(s3)
-    return id
     # write the cake to the json file in s3
     result = add_cake_to_s3(s3, id, cake)
     # return the result
