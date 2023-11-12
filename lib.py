@@ -29,6 +29,12 @@ def create_index(s3):
     file_name = "config.json"
     s3.upload_file(file_name, BUCKET, INDEX_FILE)
 
+def get_cakes(s3):
+    cakes_list = s3.list_objects_v2(
+    Bucket=BUCKET,
+    Prefix='cakes'
+)
+    return cakes_list
 
 def get_next_id(s3):
     try:
@@ -62,7 +68,7 @@ def add_cake_to_s3(s3, id, cake):
     except ClientError as e:
         logging.error(e)
         return {"Status": "Failed"}
-    return {"Status": "Success"}
+    return {"Status": "Success", "cake_id" : id}
 
 
 def delete_cake_from_s3(id):
