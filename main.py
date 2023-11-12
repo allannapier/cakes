@@ -9,8 +9,8 @@ app = FastAPI()
 
 class Cake(BaseModel):
     name: str
-    comment: Union[str, None] = None
-    image_url: Union[str, None] = None
+    comment: str
+    image_url: str
     yum_factor: int  # we should validate this value as it needs to be between 1-5
 
 
