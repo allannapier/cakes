@@ -43,8 +43,6 @@ async def delete_items():
     # find s3 file with name based on ID and delete it
     return [{"name": "Foo"}]
 
-@app.get()
-
 
 def custom_openapi():
     if app.openapi_schema:
