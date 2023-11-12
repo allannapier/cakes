@@ -37,9 +37,9 @@ async def add_items(cake: Cake):
 
 
 @app.delete("/items/delete/{item_id}")
-async def delete_items():
+async def delete_items(item_id: int):
     # find s3 file with name based on ID and delete it
-    return [{"name": "Foo"}]
+    return [{"name": item_id}]
 
 
 def custom_openapi():

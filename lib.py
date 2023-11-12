@@ -35,8 +35,8 @@ def get_cakes(s3):
         cakes_list = s3.list_objects_v2(
         Bucket='cakes'
         )['contents']
-        for cake in cakes_list:
-            ret_list.append({"cake":cake['Key']})
+        for ind_cake in cakes_list:
+            ret_list.append({"cake":ind_cake['Key']})
     except ClientError as e:
         logging.error(e)
         return {"Status": "Failed"}
