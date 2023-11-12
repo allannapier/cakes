@@ -31,9 +31,17 @@ def create_index(s3):
 
 def get_cakes(s3):
     ret_list = []
-    cake_bucket = s3.bucket(BUCKET)
-    for ind_cake in cake_bucket.objects.all():
-        ret_list.append(ind_cake)
+    try:
+        cakes_list = s3.list_objects_v2(
+        Bucket=BUCKET,
+        Prefix='cakes/'
+        )
+        for cake in cakes_list.get('Contents', []):
+            ret_list.append({"cake":cake['Key']})
+    except ClientError as e:
+        logging.error(e)
+        return {"Status": "Failed"}
+
     return json.dump(ret_list)
 
 def get_next_id(s3):
