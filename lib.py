@@ -35,7 +35,7 @@ def get_next_id(s3):
         last_id = json.loads(
             s3.get_object(Bucket=BUCKET, Key=INDEX_FILE)["Body"].read()
         )
-        next_id = int(last_id["last_clientid"]) + 1
+        next_id = int(last_id["last_cake_id"]) + 1
         return next_id
     except:
         # must be a brand new system so lets initiate the ids file by copying it from local
@@ -43,7 +43,7 @@ def get_next_id(s3):
         last_id = json.loads(
             s3.get_object(Bucket=BUCKET, Key=INDEX_FILE)["Body"].read()
         )
-        next_id = int(last_id["last_client_id"]) + 1
+        next_id = int(last_id["last_cake_id"]) + 1
         return next_id
 
 
@@ -57,7 +57,7 @@ def add_cake_to_s3(s3, id, cake):
         }
         file_name = str(id) + ".json"
         s3.put_object(Body=json.dumps(body), Bucket=BUCKET, Key=file_name)
-        last_id = {"last_clientid": id}
+        last_id = {"last_cake_id": id}
         s3.put_object(Body=json.dumps(last_id), Bucket=BUCKET, Key=INDEX_FILE)
     except ClientError as e:
         logging.error(e)
