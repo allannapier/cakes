@@ -1,28 +1,49 @@
 from fastapi import FastAPI
 from fastapi.openapi.utils import get_openapi
 from pydantic import BaseModel
+from lib import get_next_id, add_cake_to_s3, s3client,delete_cake_from_s3
 
 app = FastAPI()
 
+
 class Cake(BaseModel):
-    id : int
     name: str
     comment: str
     image_url: str
-    yum_factor: int #we should validate this value as it needs to be between 1-5
+    yum_factor: int  # we should validate this value as it needs to be between 1-5
 
 
 @app.get("/items/")
 async def read_items():
+    #initiate s3 client
+    s3 =s3client()
+    # read all files in S3 bucket
+
+    # build a list of cakes
+
+    # return list of cakes as json
+
     return [{"name": "Foo"}]
 
+
 @app.post("/items/add/")
-async def add_items( cake: Cake):
-    return cake.name
+async def add_items(cake: Cake):
+    #initiate s3 client
+    s3 =s3client()
+    # get the id and use that as the filename in S3
+    id = get_next_id(s3)
+    # write the cake to the json file in s3
+    result = add_cake_to_s3(s3, id, cake)
+    # return the result
+    return result
+
 
 @app.delete("/items/delete/{item_id}")
 async def delete_items():
+    # find s3 file with name based on ID and delete it
     return [{"name": "Foo"}]
+
+@app.get()
 
 
 def custom_openapi():
