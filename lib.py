@@ -49,9 +49,14 @@ def get_next_id(s3):
 
 def add_cake_to_s3(s3, id, cake):
     try:
-        
+        body = {
+            "name": cake.name,
+            "comment": cake.comment,
+            "image_url": cake.image_url,
+            "yum_factor": cake.yum_factor,
+        }
         file_name = str(id) + ".json"
-        s3.put_object(Body=json.dumps(cake), Bucket=BUCKET, Key=file_name)
+        s3.put_object(Body=json.dumps(body), Bucket=BUCKET, Key=file_name)
         last_id = {"last_clientid": id}
         s3.put_object(Body=json.dumps(last_id), Bucket=BUCKET, Key=INDEX_FILE)
     except ClientError as e:
