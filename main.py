@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.openapi.utils import get_openapi
 from pydantic import BaseModel
-from lib import get_next_id, add_cake_to_s3, s3client,delete_cake_from_s3
+from lib import get_next_id, add_cake_to_s3, s3client, delete_cake_from_s3
 
 app = FastAPI()
 
@@ -15,8 +15,8 @@ class Cake(BaseModel):
 
 @app.get("/items/")
 async def read_items():
-    #initiate s3 client
-    s3 =s3client()
+    # initiate s3 client
+    s3 = s3client()
     # read all files in S3 bucket
 
     # build a list of cakes
@@ -28,8 +28,8 @@ async def read_items():
 
 @app.post("/items/add/")
 async def add_items(cake: Cake):
-    #initiate s3 client
-    s3 =s3client()
+    # initiate s3 client
+    s3 = s3client()
     # get the id and use that as the filename in S3
     id = get_next_id(s3)
     # write the cake to the json file in s3

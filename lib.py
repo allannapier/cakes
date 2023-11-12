@@ -48,7 +48,7 @@ def get_next_id(s3):
 
 def add_cake_to_s3(s3, id, cake):
     try:
-        s3.put_object(Body=json.dumps(cake), Bucket=BUCKET, Key=id + ".json")
+        s3.put_object(Body=cake, Bucket=BUCKET, Key=id + ".json")
         last_id = {"last_clientid": id}
     except ClientError as e:
         logging.error(e)
