@@ -39,6 +39,11 @@ async def add_items(cake: Cake):
 @app.delete("/items/delete/{item_id}")
 async def delete_items(item_id: int):
     # find s3 file with name based on ID and delete it
+    s3 = s3client()
+    s3.delete_object(
+    Bucket='cakes',
+    Key=item_id + '.json'
+    )
     return [{"name": item_id}]
 
 
