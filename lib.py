@@ -32,14 +32,14 @@ def create_index(s3):
 def get_next_id(s3):
     try:
         last_id = s3.get_object(Bucket=BUCKET, Key=INDEX_FILE)["Body"].read()
-        logging(last_id)
+        logging.info(last_id)
         next_id = int(last_id["last_client_id"]) + 1
         return next_id
     except:
         # must be a brand new system so lets initiate the ids file by copying it from local
         create_index(s3)
         last_id = s3.get_object(Bucket=BUCKET, Key=INDEX_FILE)["Body"].read()
-        logging(last_id)
+        logging.info(last_id)
         next_id = int(last_id["last_client_id"]) + 1
         return next_id
 
