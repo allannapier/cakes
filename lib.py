@@ -12,8 +12,8 @@ def s3client():
     s3 = boto3.client(
         service_name="s3",
         endpoint_url=os.environ["cf_endpoint"],
-        aws_access_key_id=os.environ["cf_api_id"],
-        aws_secret_access_key=os.environ["cf_api_key"],
+        aws_access_key_id=os.environ["cf_api_key"],
+        aws_secret_access_key=os.environ["cf_api_secret"],
         region_name="auto",  # Must be one of: wnam, enam, weur, eeur, apac, auto
     )
     return s3
