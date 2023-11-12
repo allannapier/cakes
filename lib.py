@@ -49,6 +49,7 @@ def get_next_id(s3):
 
 def add_cake_to_s3(s3, id, cake):
     try:
+        return jsonable_encoder(cake)
         file_name = str(id) + ".json"
         s3.put_object(Body=bytes(jsonable_encoder(cake)), Bucket=BUCKET, Key=file_name)
         last_id = {"last_clientid": id}
