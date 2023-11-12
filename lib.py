@@ -34,8 +34,8 @@ def get_next_id(s3):
         last_id = s3.get_object(Bucket=BUCKET, Key=INDEX_FILE)["Body"].read()
         next_id = int(last_id["last_client_id"]) + 1
         return next_id
-    except FileNotFoundError:
-        #must be a brand new system so lets initiate the ids file by copying it from local
+    except:
+        # must be a brand new system so lets initiate the ids file by copying it from local
         create_index(s3)
         last_id = s3.get_object(Bucket=BUCKET, Key=INDEX_FILE)["Body"].read()
         next_id = int(last_id["last_client_id"]) + 1
@@ -45,7 +45,7 @@ def get_next_id(s3):
 def add_cake_to_s3(s3, id, cake):
     try:
         s3.put_object(Body=json.dumps(cake), Bucket=BUCKET, Key=id + ".json")
-        last_id = {"last_clientid":id}
+        last_id = {"last_clientid": id}
     except ClientError as e:
         logging.error(e)
         return {"Status": "Failed"}
