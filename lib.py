@@ -33,11 +33,11 @@ def get_cakes(s3):
     ret_list = []
     try:
         paginator = s3.get_paginator('list_objects_v2')
-        pages = paginator.paginate(Bucket=BUCKET, Prefix='cakes')
+        pages = paginator.paginate(Bucket=BUCKET, Prefix='cakes/')
 
         for page in pages:
             ret_list.append(page)
-            
+
     except ClientError as e:
         logging.error(e)
         return {"Status": "Failed"}
