@@ -41,10 +41,7 @@ async def delete_items(item_id: str):
     # find s3 file with name based on ID and delete it
     s3 = s3client()
     key = item_id + '.json'
-    s3.delete_object(
-    Bucket='cakes',
-    Key=key
-    )
+    return delete_cake_from_s3
     return [{"name": item_id}]
 
 
