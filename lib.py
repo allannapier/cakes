@@ -30,10 +30,15 @@ def create_index(s3):
     s3.upload_file(file_name, BUCKET, INDEX_FILE)
 
 def get_cakes(s3):
+    ret_list = []
     cakes_list = s3.list_objects_v2(
-    Bucket=BUCKET
-)
-    return cakes_list
+    Bucket=BUCKET,
+    Prefix='data/'
+    )
+    for cake in cakes_list.get('Contents', []):
+        ret_list.append({"cake":cake['Key']})
+
+    return json.dump(ret_list)
 
 def get_next_id(s3):
     try:
