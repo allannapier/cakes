@@ -31,8 +31,7 @@ def create_index(s3):
 
 def get_cakes(s3):
     cakes_list = s3.list_objects_v2(
-    Bucket=BUCKET,
-    Prefix='cakes'
+    Bucket=BUCKET
 )
     return cakes_list
 
