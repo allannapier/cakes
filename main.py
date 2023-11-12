@@ -8,8 +8,8 @@ app = FastAPI()
 
 class Cake(BaseModel):
     name: str
-    comment: str
-    image_url: str
+    comment: str | None = None
+    image_url: str | None = None
     yum_factor: int  # we should validate this value as it needs to be between 1-5
 
 
