@@ -33,6 +33,7 @@ def get_next_id(s3):
     try:
         last_id = s3.get_object(Bucket=BUCKET, Key=INDEX_FILE)["Body"].read()
         logging.info(last_id)
+        return last_id
         next_id = int(last_id["last_client_id"]) + 1
         return next_id
     except:
