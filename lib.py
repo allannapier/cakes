@@ -32,11 +32,12 @@ def create_index(s3):
 def get_cakes(s3):
     ret_list = []
     try:
-        cakes_list = s3.list_objects_v2(
-        Bucket='cakes'
-        )['contents']
-        for ind_cake in cakes_list:
-            ret_list.append({"cake":ind_cake['Key']})
+        paginator = s3.get_paginator('list_objects_v2')
+        pages = paginator.paginate(Bucket=BUCKET, Prefix='cakes')
+
+        for page in pages:
+            ret_list.append(page)
+            
     except ClientError as e:
         logging.error(e)
         return {"Status": "Failed"}
