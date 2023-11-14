@@ -49,7 +49,7 @@ def create_index(s3):
 def get_cakes(s3res,s3):
     ret_list = []
     #try:
-    bucket = s3.Bucket(BUCKET)
+    bucket = s3res.Bucket(BUCKET)
     for item in bucket.objects.all():
         if 'ids' not in item.key:
             cake_details = get_file(s3,item.key)
