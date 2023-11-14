@@ -39,8 +39,8 @@ def get_cakes(s3):
     ret_list = []
     try:
         bucket = s3.Bucket(BUCKET)
-        prefix = 'cakes'
-        return list(bucket.boto_bucket.objects.filter(Prefix=prefix))
+        files = bucket.objects.all()
+        return list(files)
 
     except ClientError as e:
         logging.error(e)
