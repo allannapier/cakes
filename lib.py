@@ -102,8 +102,8 @@ def add_cake_to_s3(s3, id, cake):
 def delete_cake_from_s3(s3, cake_id):
     key = cake_id + ".json"
     try:
-        s3.delete_object(Bucket=BUCKET, Key=key)
-        return {"Status": "Deleted", "name": cake_id}
+        result = s3.delete_object(Bucket=BUCKET, Key=key)
+        return {"Status": result, "name": cake_id}
     except ClientError as e:
         logging.error(e)
         return {"Status": "Failed"}
