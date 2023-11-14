@@ -46,7 +46,7 @@ async def delete_items(item_id: str):
     else:
         s3 = lib.s3client()
         key = item_id + '.json'
-        return lib.delete_cake_from_s3
+        return lib.delete_cake_from_s3(s3,item_id)
     
 
 def custom_openapi():
