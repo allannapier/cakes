@@ -17,12 +17,18 @@ def s3client():
         aws_secret_access_key=os.environ["cf_api_secret"],
         region_name="auto",  # Must be one of: wnam, enam, weur, eeur, apac, auto
     )
-    
+
     return s3
 
+
 def s3resource():
-    session = boto3.Session( aws_access_key_id=os.environ["cf_api_key"], aws_secret_access_key=os.environ["cf_api_secret"])
-    s3res = session.resource('s3')
+    session = boto3.Session(
+        aws_access_key_id=os.environ["cf_api_key"],
+        aws_secret_access_key=os.environ["cf_api_secret"],
+        endpoint_url=os.environ["cf_endpoint"],
+        region_name="auto",
+    )
+    s3res = session.resource("s3")
     return s3res
 
 
@@ -34,6 +40,7 @@ def get_file(s3, filename):
 def create_index(s3):
     file_name = "config.json"
     s3.upload_file(file_name, BUCKET, INDEX_FILE)
+
 
 def get_cakes(s3):
     ret_list = []
@@ -79,17 +86,14 @@ def add_cake_to_s3(s3, id, cake):
     except ClientError as e:
         logging.error(e)
         return {"Status": "Failed"}
-    return {"Status": "Success", "cake_id" : id}
+    return {"Status": "Success", "cake_id": id}
 
 
-def delete_cake_from_s3(s3,cake_id):
-    key = cake_id + '.json'
+def delete_cake_from_s3(s3, cake_id):
+    key = cake_id + ".json"
     try:
-        s3.delete_object(
-        Bucket=BUCKET,
-        Key=key
-        )
-        return {"Status":"Deleted","name": cake_id}
+        s3.delete_object(Bucket=BUCKET, Key=key)
+        return {"Status": "Deleted", "name": cake_id}
     except ClientError as e:
         logging.error(e)
         return {"Status": "Failed"}
