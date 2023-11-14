@@ -16,11 +16,11 @@ class Cake(BaseModel):
 
 
 @app.get("/items/")
-def read_items():
+async def read_items():
     # initiate s3 client
     s3res = s3resource()
     # read all files in S3 bucket
-    cakes_list = get_cakes(s3res)
+    cakes_list = await get_cakes(s3res)
     # build a list of cakes
     return cakes_list
 

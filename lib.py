@@ -50,7 +50,7 @@ def get_cakes(s3):
     #try:
     bucket = s3.Bucket(BUCKET)
     files = bucket.objects.all()
-    return files
+    return list(files)
 
     #except ClientError as e:
         #logging.error(e)
