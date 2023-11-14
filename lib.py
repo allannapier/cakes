@@ -49,13 +49,10 @@ def get_cakes(s3):
     ret_list = []
     #try:
     bucket = s3.Bucket(BUCKET)
-    ret_list = bucket.objects.all()
-    if ret_list:
-        logging.error('some error',ret_list)
-        return ret_list
-    else:
-        logging.error('ret values was empty')
-        return None
+    for item in bucket.objects.all():
+        ret_list.append(item.key)
+    
+    return ret_list
 
     #except ClientError as e:
         #logging.error(e)
