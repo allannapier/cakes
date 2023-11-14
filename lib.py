@@ -46,22 +46,21 @@ def create_index(s3):
     s3.upload_file(file_name, BUCKET, INDEX_FILE)
 
 
-
-def get_cakes(s3res,s3):
+def get_cakes(s3res, s3):
     ret_list = []
-    #try:
+    # try:
     bucket = s3res.Bucket(BUCKET)
     for item in bucket.objects.all():
-        if 'ids' not in item.key:
-            cake_details = get_file(s3,item.key)
-            id = item.key.replace('cakes/','').replace('.json','')
-            ret_list.append({id:cake_details})
-    
+        if "ids" not in item.key:
+            cake_details = get_file(s3, item.key)
+            id = item.key.replace("cakes/", "").replace(".json", "")
+            ret_list.append({id: cake_details})
+
     return ret_list
 
-    #except ClientError as e:
-        #logging.error(e)
-        #return {"Status": "Failed"}
+    # except ClientError as e:
+    # logging.error(e)
+    # return {"Status": "Failed"}
 
 
 def get_next_id(s3):

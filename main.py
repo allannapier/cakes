@@ -12,7 +12,9 @@ class Cake(BaseModel):
     name: str
     comment: str
     image_url: str
-    yum_factor: int = Field(..., gt=0, le=6)  # we should validate this value as it needs to be between 1-5
+    yum_factor: int = Field(
+        ..., gt=0, le=6
+    )  # we should validate this value as it needs to be between 1-5
 
 
 @app.get("/items/")
@@ -21,7 +23,7 @@ def read_items():
     s3res = lib.s3resource()
     s3 = lib.s3client()
     # read all files in S3 bucket
-    cakes_list = lib.get_cakes(s3res,s3)
+    cakes_list = lib.get_cakes(s3res, s3)
     # build a list of cakes
     return cakes_list
 
@@ -45,9 +47,9 @@ async def delete_items(item_id: str):
         raise HTTPException(status_code=404, detail="Incorrect ID supplied")
     else:
         s3 = lib.s3client()
-        key = item_id + '.json'
-        return lib.delete_cake_from_s3(s3,item_id)
-    
+        key = item_id + ".json"
+        return lib.delete_cake_from_s3(s3, item_id)
+
 
 def custom_openapi():
     if app.openapi_schema:
