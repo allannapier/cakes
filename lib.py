@@ -45,14 +45,17 @@ def create_index(s3):
     s3.upload_file(file_name, BUCKET, INDEX_FILE)
 
 
-def get_cakes(s3):
+
+def get_cakes(s3res,s3):
     ret_list = []
     #try:
     bucket = s3.Bucket(BUCKET)
     for item in bucket.objects.all():
-        ret_list.append(item.key)
+        if 'ids' not in item.key:
+            cake_details = get_file(s3,item.key)
+            ret_list.append(cake_details)
     
-    return ret_list
+    return json.dumps(ret_list)
 
     #except ClientError as e:
         #logging.error(e)

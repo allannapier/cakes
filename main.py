@@ -19,10 +19,9 @@ class Cake(BaseModel):
 def read_items():
     # initiate s3 client
     s3res = s3resource()
-    
+    s3 = s3client()
     # read all files in S3 bucket
-    cakes_list = get_cakes(s3res)
-    
+    cakes_list = get_cakes(s3res,s3)
     # build a list of cakes
     return cakes_list
 
