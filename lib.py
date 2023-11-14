@@ -17,7 +17,13 @@ def s3client():
         aws_secret_access_key=os.environ["cf_api_secret"],
         region_name="auto",  # Must be one of: wnam, enam, weur, eeur, apac, auto
     )
+    
     return s3
+
+def s3resource():
+    session = boto3.Session( aws_access_key_id=os.environ["cf_api_key"], aws_secret_access_key=os.environ["cf_api_secret"])
+    s3res = session.resource('s3')
+    return s3res
 
 
 def get_file(s3, filename):
