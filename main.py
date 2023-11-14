@@ -41,7 +41,7 @@ async def add_items(cake: Cake):
 @app.delete("/items/delete/{item_id}")
 async def delete_items(item_id: str):
     # find s3 file with name based on ID and delete it
-    if not item_id.isnumeric:
+    if not item_id.isnumeric():
         raise HTTPException(status_code=404, detail="Incorrect ID supplied")
     else:
         s3 = lib.s3client()
