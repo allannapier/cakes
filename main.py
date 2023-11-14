@@ -22,7 +22,7 @@ def read_items():
     
     # read all files in S3 bucket
     cakes_list = get_cakes(s3res)
-    return "no error yet"
+    
     # build a list of cakes
     return cakes_list
 
