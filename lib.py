@@ -38,7 +38,7 @@ def create_index(s3):
 def get_cakes(s3):
     ret_list = []
     try:
-        bucket = s3.boto_connection.Bucket(BUCKET)
+        bucket = s3.Bucket(BUCKET)
         prefix = 'cakes'
         return list(bucket.boto_bucket.objects.filter(Prefix=prefix))
 
@@ -46,7 +46,6 @@ def get_cakes(s3):
         logging.error(e)
         return {"Status": "Failed"}
 
-    return json.dump(ret_list)
 
 def get_next_id(s3):
     try:
