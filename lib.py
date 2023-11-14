@@ -37,7 +37,8 @@ def s3resource():
 
 def get_file(s3, filename):
     file = s3.get_object(Bucket=BUCKET, Key=filename)["Body"].read()
-    return file
+    json_dict = json.loads(file)
+    return json_dict
 
 
 def create_index(s3):
