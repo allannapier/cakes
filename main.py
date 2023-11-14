@@ -1,7 +1,7 @@
 from typing import Union
 from fastapi import FastAPI, HTTPException
 from fastapi.openapi.utils import get_openapi
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 import os
 import lib
 
@@ -12,7 +12,7 @@ class Cake(BaseModel):
     name: str
     comment: str
     image_url: str
-    yum_factor: int  # we should validate this value as it needs to be between 1-5
+    yum_factor: int = Field(..., gt=0, le=6)  # we should validate this value as it needs to be between 1-5
 
 
 @app.get("/items/")
