@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from fastapi.openapi.utils import get_openapi
 from pydantic import BaseModel
 import os
-from lib import get_next_id, add_cake_to_s3, s3client, delete_cake_from_s3, get_cakes, s3resource
+import lib
 
 app = FastAPI()
 
@@ -18,10 +18,10 @@ class Cake(BaseModel):
 @app.get("/items/")
 def read_items():
     # initiate s3 client
-    s3res = s3resource()
-    s3 = s3client()
+    s3res = lib.s3resource()
+    s3 = lib.s3client()
     # read all files in S3 bucket
-    cakes_list = get_cakes(s3res,s3)
+    cakes_list = lib.get_cakes(s3res,s3)
     # build a list of cakes
     return cakes_list
 
@@ -29,11 +29,11 @@ def read_items():
 @app.post("/items/add/")
 async def add_items(cake: Cake):
     # initiate s3 client
-    s3 = s3client()
+    s3 = lib.s3client()
     # get the id and use that as the filename in S3
-    id = get_next_id(s3)
+    id = lib.get_next_id(s3)
     # write the cake to the json file in s3
-    result = add_cake_to_s3(s3, id, cake)
+    result = lib.add_cake_to_s3(s3, id, cake)
     # return the result
     return result
 
@@ -42,11 +42,10 @@ async def add_items(cake: Cake):
 async def delete_items(item_id: str):
     # find s3 file with name based on ID and delete it
     if item_id != 'id':
-        s3 = s3client()
+        s3 = lib.s3client()
         key = item_id + '.json'
-        return delete_cake_from_s3
+        return lib.delete_cake_from_s3
     
-
 
 def custom_openapi():
     if app.openapi_schema:
