@@ -53,7 +53,7 @@ def get_cakes(s3res,s3):
     for item in bucket.objects.all():
         if 'ids' not in item.key:
             cake_details = get_file(s3,item.key)
-            id = item.key.replace('cakes/','')
+            id = item.key.replace('cakes/','').replace('.json','')
             ret_list.append({id:cake_details})
     
     return ret_list
