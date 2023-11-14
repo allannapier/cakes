@@ -49,9 +49,9 @@ def get_cakes(s3):
     ret_list = []
     #try:
     bucket = s3.Bucket(BUCKET)
-    files = bucket.objects.all()
-    logging.log(files)
-    return files
+    ret_list = bucket.objects.all()
+    logging.log(ret_list)
+    return ret_list
 
     #except ClientError as e:
         #logging.error(e)
