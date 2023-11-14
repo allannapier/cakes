@@ -26,7 +26,7 @@ def s3resource():
         aws_access_key_id=os.environ["cf_api_key"],
         aws_secret_access_key=os.environ["cf_api_secret"]
     )
-    s3res = session.resource("s3",
+    s3res = session.resource(
         endpoint_url=os.environ["cf_endpoint"],
         region_name="auto",
         aws_access_key_id=os.environ["cf_api_key"],
