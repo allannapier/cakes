@@ -47,14 +47,14 @@ def create_index(s3):
 
 def get_cakes(s3):
     ret_list = []
-    try:
-        bucket = s3.Bucket(BUCKET)
-        files = bucket.objects.all()
-        return list(files)
+    #try:
+    bucket = s3.Bucket(BUCKET)
+    files = bucket.objects.all()
+    return list(files)
 
-    except ClientError as e:
-        logging.error(e)
-        return {"Status": "Failed"}
+    #except ClientError as e:
+        #logging.error(e)
+        #return {"Status": "Failed"}
 
 
 def get_next_id(s3):

@@ -16,7 +16,7 @@ class Cake(BaseModel):
 
 
 @app.get("/items/")
-async def read_items():
+def read_items():
     # initiate s3 client
     s3res = s3resource()
     # read all files in S3 bucket
