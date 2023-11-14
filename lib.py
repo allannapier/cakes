@@ -23,14 +23,14 @@ def s3client():
 
 def s3resource():
     session = boto3.Session(
-        aws_access_key_id=str(os.environ["cf_api_key"]),
-        aws_secret_access_key=str(os.environ["cf_api_secret"]),
+        aws_access_key_id=os.environ["cf_api_key"],
+        aws_secret_access_key=os.environ["cf_api_secret"],
     )
     s3res = session.resource(
         "s3",
-        endpoint_url=str(os.environ["cf_endpoint"]),
-        aws_access_key_id=str(os.environ["cf_api_key"]),
-        aws_secret_access_key=str(os.environ["cf_api_secret"]),
+        endpoint_url=os.environ["cf_endpoint"],
+        aws_access_key_id=os.environ["cf_api_key"],
+        aws_secret_access_key=os.environ["cf_api_secret"],
     )
     return s3res
 
