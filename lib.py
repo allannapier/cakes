@@ -55,7 +55,7 @@ def get_cakes(s3res,s3):
             cake_details = get_file(s3,item.key)
             ret_list.append(cake_details)
     
-    return json.dumps(ret_list)
+    return ret_list
 
     #except ClientError as e:
         #logging.error(e)
