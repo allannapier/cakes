@@ -1,5 +1,5 @@
 from typing import Union
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.openapi.utils import get_openapi
 from pydantic import BaseModel
 import os
@@ -41,7 +41,9 @@ async def add_items(cake: Cake):
 @app.delete("/items/delete/{item_id}")
 async def delete_items(item_id: str):
     # find s3 file with name based on ID and delete it
-    if item_id != 'id':
+    if not item_id.isnumeric:
+        raise HTTPException(status_code=404, detail="Incorrect ID supplied")
+    else:
         s3 = lib.s3client()
         key = item_id + '.json'
         return lib.delete_cake_from_s3
