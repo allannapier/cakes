@@ -22,7 +22,7 @@ async def read_items():
     # read all files in S3 bucket
     cakes_list = get_cakes(s3res)
     # build a list of cakes
-    return os.environ["cf_endpoint"]
+    return os.environ["cf_endpoint"].replace('"', '')
     return cakes_list
 
 
